@@ -8,11 +8,22 @@
   </head>
   <body>
     <div class="container">
-        <div class="page-header">
-            <h1>{{ titulo|title }}</h1>
-        </div>
 
-        {% block conteudo %}{% endblock %}
+      {% with messages = get_flashed_messages() %}
+        {% if messages %} 
+            <ul id="messages" class="list-unstyled">
+            {% for message in messages %}
+                <li class="alert alert-success">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+      {% endwith %} 
+      
+      <div class="page-header">
+          <h1>{{ titulo|title }}</h1>
+      </div>
+
+      {% block conteudo %}{% endblock %}
 
     </div>
   </body>

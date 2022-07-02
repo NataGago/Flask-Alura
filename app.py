@@ -1,6 +1,12 @@
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, flash, render_template, request, redirect, session, flash
 
 app = Flask(__name__)
+app.secret_key = 'alura'
+# app.run(host='0.0.0.0', port=8080, debug=True)
+
+# export FLASK_APP=app.py
+# export FLASK_ENV=development
+
 
 class Jogo():
     
@@ -39,8 +45,9 @@ def login():
 @app.post('/autenticar')
 def autenticar():
     if 'mestra' == request.form['senha']:
+        session['usuario_logado'] = request.form['usuario']
+        flash(f"{session['usuario_logado']} logado com sucesso!")
         return redirect('/')
     else:
+        flash('Usuário não logado.')
         return redirect('/login')
-
-# app.run(host='0.0.0.0', port=8080, debug=True)
