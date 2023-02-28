@@ -6,14 +6,19 @@ import tomli
 with open("config.toml", mode="rb") as fp:
     config = tomli.load(fp)
 
+DB_SGBD = config["database"]["DB_SGBD"]
+DB_USER = config["database"]["DB_USER"]
 DB_PASSWORD = config["database"]["DB_PASSWORD"]
+DB_SERVER = config["database"]["DB_SERVER"]
+DB_PORT = config["database"]["DB_PORT"]
+DB_DATABASE = config["database"]["DB_DATABASE"]
 
 print("Conectando...")
 try:
       conn = mysql.connector.connect(
             host='127.0.0.1',
-            port='33061',
-            user='root',
+            port=DB_PORT,
+            user=DB_USER,
             password=DB_PASSWORD
       )
 except mysql.connector.Error as err:
